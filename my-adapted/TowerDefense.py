@@ -1,9 +1,9 @@
 # IMPORTANT INFORMATION: the use of 'self' ALWAYS refers to the class that it is in. EVERY FUNCTION INSIDE OF A CLASS MUST DECLARE SELF! ex: 'def exampleFunction(self, input1, input2):
 
-from tkinter import *
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageTk
+from game import Game
 import random
 import math
 gridSize = 30  # the height and width of the array of blocks
@@ -36,55 +36,22 @@ selectedTower = "<None>"
 displayTower = None
 
 
-class Game():  # the main class that we call "Game"
+class TowerDefenseGame(Game):  # the main class that we call "Game"
     def __init__(self):  # setting up the window for the game here
-        self.root = Tk()  # saying this window will use tkinter
-        self.root.title("Tower Defense Ultra Mode")
-        self.running = True  # creating a variable RUN. does nothing yet.hu
-        self.root.protocol("WM_DELETE_WINDOW", self.end)
+        super().__init__("Tower Defense Ultra Mode", mapSize, mapSize)
 
-        self.frame = Frame(master=self.root)
-        self.frame.grid(row=0, column=0)
+        self.initialize()
 
-        # actually creates a window and puts our frame on it
-        self.canvas = Canvas(master=self.frame, width=mapSize,
-                             height=mapSize, bg="white", highlightthickness=0)
-        # makes the window called "canvas" complete
-        self.canvas.grid(row=0, column=0, rowspan=2, columnspan=1)
-
-        self.displayboard = Displayboard(self)
-
-        self.infoboard = Infoboard(self)
-
-        self.towerbox = Towerbox(self)
-
-        self.mouse = Mouse(self)
-
-        self.gameMap = Map()
-
-        self.wavegenerator = Wavegenerator(self)
-
-        self.run()  # calls the function 'def run(self):'
-
-        self.root.mainloop()  # starts running the tkinter graphics loop
-
-    def run(self):
-        # handle special cases first
-        if not self.running:
-            return
-
-        self.update()  # calls the function 'def update(self):'
-        self.paint()  # calls the function 'def paint(self):'
-
-        # does a run of the function every 50/1000 = 1/20 of a second
-        self.root.after(50, self.run)
-
-    def end(self):
-        self.root.destroy()  # closes the game window and ends the program
+    def initialize(self):
+        self.add_object(Displayboard(self))
+        self.add_object(Infoboard(self))
+        self.add_object(Towerbox(self))
+        self.add_object(Map())
+        self.add_object(Mouse(self))
+        self.add_object(Wavegenerator(self))
 
     def update(self):
-        self.mouse.update()
-        self.wavegenerator.update()
+        super().update()
         self.displayboard.update()
         # done so that a projectile removing itself wont break this loop
         for projectile in projectiles:
@@ -118,10 +85,7 @@ class Game():  # the main class that we call "Game"
                     towerGrid[x][y].update()
 
     def paint(self):
-        self.canvas.delete(ALL)  # clear the screen
-        self.gameMap.paint(self.canvas)
-        # draw the mouse dot by going to its 'def paint(canvas):' command
-        self.mouse.paint(self.canvas)
+        super().paint()
         for y in range(gridSize):
             for x in range(gridSize):
                 if towerGrid[x][y]:
@@ -589,7 +553,7 @@ class Projectile(object):
         if target and not target.alive:
             projectiles.remove(self)
             return
-        
+
         if self.hit:
             self.gotMonster()
         self.move()
@@ -1051,7 +1015,7 @@ class WaterBlock(Block):
 
 
 def main():
-    game = Game()  # start the application at Class Game()
+    game = TowerDefenseGame()  # start the application at Class Game()
 
 
 if __name__ == '__main__':
