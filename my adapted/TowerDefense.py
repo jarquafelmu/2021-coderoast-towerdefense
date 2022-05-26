@@ -86,20 +86,15 @@ class Game():  # the main class that we call "Game"
         self.mouse.update()
         self.wavegenerator.update()
         self.displayboard.update()
-        for i in range(len(projectiles)):
-            try:
-                projectiles[i].update()
-            except:
-                pass
+        # done so that a projectile removing itself wont break this loop
+        for projectile in projectiles:
+            projectile.update()
         for y in range(gridSize):
             for x in range(gridSize):
                 # updates each block one by one by going to its 'def update():' command
                 blockGrid[x][y].update()
-        for i in range(len(monsters)):
-            try:
-                monsters[i].update()
-            except:
-                pass
+        for monster in monsters:
+            monster.update()
         global monstersByHealth
         global monstersByHealthReversed
         global monstersByDistance
