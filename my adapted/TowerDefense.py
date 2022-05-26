@@ -586,15 +586,14 @@ class Projectile(object):
         #self.image = ImageTk.PhotoImage(self.image)
 
     def update(self):
-        try:
-            if target.alive == False:
-                projectiles.remove(self)
-                return
-        except:
-            if self.hit:
-                self.gotMonster()
-            self.move()
-            self.checkHit()
+        if target and not target.alive:
+            projectiles.remove(self)
+            return
+        
+        if self.hit:
+            self.gotMonster()
+        self.move()
+        self.checkHit()
 
     def gotMonster(self):
         self.target.health -= self.damage
