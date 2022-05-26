@@ -284,10 +284,15 @@ class NextWaveButton:
         self.yTwo = 50
         self.canPress = True
 
+    def is_within_bounds(self, x: int, y: int) -> bool:
+        return self.x <= x <= self.xTwo and self.y <= y <= self.yTwo
+
     def checkPress(self, click, x, y):
-        if x >= self.x and y >= self.y and x <= self.xTwo and y <= self.yTwo:
-            if self.canPress and click and len(monsters) == 0:
-                self.game.wavegenerator.getWave()
+        if not self.is_within_bounds(x, y):
+            return
+
+        if self.canPress and click and len(monsters) == 0:
+            self.game.wavegenerator.getWave()
 
     def paint(self, canvas):
         if self.canPress and len(monsters) == 0:
