@@ -305,7 +305,7 @@ class NextWaveButton:
         canvas.create_text(500, 37, text="Next Wave")
 
 
-class MyButton(object):
+class MyButton():
     def __init__(self, x, y, xTwo, yTwo):
         self.x = x
         self.y = y
