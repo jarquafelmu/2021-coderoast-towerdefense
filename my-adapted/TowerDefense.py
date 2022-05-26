@@ -1,5 +1,6 @@
 # IMPORTANT INFORMATION: the use of 'self' ALWAYS refers to the class that it is in. EVERY FUNCTION INSIDE OF A CLASS MUST DECLARE SELF! ex: 'def exampleFunction(self, input1, input2):
 
+from enum import auto, Enum
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageTk
@@ -36,11 +37,20 @@ selectedTower = "<None>"
 displayTower = None
 
 
+class TowerDefenseGameState(Enum):
+    IDLE = auto()
+    WAIT_FOR_SPAWN = auto()
+    SPAWNING = auto()
+
+
 class TowerDefenseGame(Game):  # the main class that we call "Game"
     def __init__(self):  # setting up the window for the game here
         super().__init__("Tower Defense Ultra Mode", mapSize, mapSize)
-
+        self.state = TowerDefenseGameState.IDLE
         self.initialize()
+
+    def set_state(self, state: TowerDefenseGameState):
+        self.state = state
 
     def initialize(self):
         self.add_object(Displayboard(self))
