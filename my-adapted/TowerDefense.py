@@ -233,16 +233,16 @@ class Wavegenerator():
         self.currentMonster = self.currentMonster + 1
 
     def update(self):
-        if self.done:
-            return
-        # if self.done == False:
-        if self.currentMonster == len(self.currentWave):
-            return self.game.displayboard.nextWaveButton.canPress = True
+        if self.game.state == TowerDefenseGameState.WAIT_FOR_SPAWN:
+            self.getWave()
+        elif self.game.state == TowerDefenseGameState.SPAWNING:
+            if self.currentMonster == len(self.currentWave):
+                self.game.set_state(TowerDefenseGameState.IDLE)
 
-        self.ticks = self.ticks+1
-        if self.ticks == self.maxTicks:
-            self.ticks = 0
-            self.spawnMonster()
+            self.ticks = self.ticks+1
+            if self.ticks == self.maxTicks:
+                self.ticks = 0
+                self.spawnMonster()
 
 
 class NextWaveButton:
