@@ -337,8 +337,6 @@ class TargetButton(MyButton):
 
 
 class StickyButton(MyButton):
-    def __init__(self, x, y, xTwo, yTwo):
-        super(StickyButton, self).__init__(x, y, xTwo, yTwo)
 
     def pressed(self):
         global displayTower
@@ -349,8 +347,6 @@ class StickyButton(MyButton):
 
 
 class SellButton(MyButton):
-    def __init__(self, x, y, xTwo, yTwo):
-        super(SellButton, self).__init__(x, y, xTwo, yTwo)
 
     def pressed(self):
         global displayTower
@@ -359,8 +355,6 @@ class SellButton(MyButton):
 
 
 class UpgradeButton(MyButton):
-    def __init__(self, x, y, xTwo, yTwo):
-        super(UpgradeButton, self).__init__(x, y, xTwo, yTwo)
 
     def pressed(self):
         global money
