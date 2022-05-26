@@ -261,7 +261,7 @@ class NextWaveButton:
             return
 
         if self.canPress and click and len(monsters) == 0:
-            self.game.wavegenerator.getWave()
+            self.game.set_state(TowerDefenseGameState.WAIT_FOR_SPAWN)
 
     def paint(self, canvas):
         if self.canPress and len(monsters) == 0:
