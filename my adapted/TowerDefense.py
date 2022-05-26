@@ -328,7 +328,7 @@ class MyButton():
 
 class TargetButton(MyButton):
     def __init__(self, x, y, xTwo, yTwo, myType):
-        super(TargetButton, self).__init__(x, y, xTwo, yTwo)
+        super().__init__(x, y, xTwo, yTwo)
         self.type = myType
 
     def pressed(self):
