@@ -144,7 +144,7 @@ class Map():
 
 
 class Wavegenerator():
-    def __init__(self, game):
+    def __init__(self, game: TowerDefenseGame):
         self.game = game
         self.done = False
         self.currentWave = []
