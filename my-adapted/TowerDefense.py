@@ -245,7 +245,7 @@ class Wavegenerator():
 
 
 class NextWaveButton:
-    def __init__(self, game):
+    def __init__(self, game: TowerDefenseGame):
         self.game = game
         self.x = 450
         self.y = 25
