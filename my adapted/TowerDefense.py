@@ -268,7 +268,7 @@ class Wavegenerator():
         # if self.done == False:
         if self.currentMonster == len(self.currentWave):
             return self.game.displayboard.nextWaveButton.canPress = True
-        
+
         self.ticks = self.ticks+1
         if self.ticks == self.maxTicks:
             self.ticks = 0
