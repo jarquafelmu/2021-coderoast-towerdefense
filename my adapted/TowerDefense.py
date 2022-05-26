@@ -40,7 +40,7 @@ class Game():  # the main class that we call "Game"
     def __init__(self):  # setting up the window for the game here
         self.root = Tk()  # saying this window will use tkinter
         self.root.title("Tower Defense Ultra Mode")
-        self.RUN = True  # creating a variable RUN. does nothing yet.hu
+        self.running = True  # creating a variable RUN. does nothing yet.hu
         self.root.protocol("WM_DELETE_WINDOW", self.end)
 
         self.frame = Frame(master=self.root)
@@ -69,12 +69,15 @@ class Game():  # the main class that we call "Game"
         self.root.mainloop()  # starts running the tkinter graphics loop
 
     def run(self):
-        if self.RUN is True:  # always going to be true for now
-            self.update()  # calls the function 'def update(self):'
-            self.paint()  # calls the function 'def paint(self):'
+        # handle special cases first
+        if not self.running:
+            return
 
-            # does a run of the function every 50/1000 = 1/20 of a second
-            self.root.after(50, self.run)
+        self.update()  # calls the function 'def update(self):'
+        self.paint()  # calls the function 'def paint(self):'
+
+        # does a run of the function every 50/1000 = 1/20 of a second
+        self.root.after(50, self.run)
 
     def end(self):
         self.root.destroy()  # closes the game window and ends the program
@@ -260,14 +263,16 @@ class Wavegenerator():
         self.currentMonster = self.currentMonster + 1
 
     def update(self):
-        if self.done == False:
-            if self.currentMonster == len(self.currentWave):
-                self.game.displayboard.nextWaveButton.canPress = True
-            else:
-                self.ticks = self.ticks+1
-                if self.ticks == self.maxTicks:
-                    self.ticks = 0
-                    self.spawnMonster()
+        if self.done:
+            return
+        # if self.done == False:
+        if self.currentMonster == len(self.currentWave):
+            return self.game.displayboard.nextWaveButton.canPress = True
+        
+        self.ticks = self.ticks+1
+        if self.ticks == self.maxTicks:
+            self.ticks = 0
+            self.spawnMonster()
 
 
 class NextWaveButton:
