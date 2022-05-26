@@ -7,6 +7,7 @@ from PIL import ImageTk
 from game import Game
 import random
 import math
+
 gridSize = 30  # the height and width of the array of blocks
 blockSize = 20  # pixels wide of each block
 mapSize = gridSize*blockSize
