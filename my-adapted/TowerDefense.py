@@ -159,7 +159,7 @@ class Wavegenerator():
         self.waveFile = open("texts/waveTexts/WaveGenerator2.txt", "r")
 
     def getWave(self):
-        self.game.displayboard.nextWaveButton.canPress = False
+        self.game.set_state(TowerDefenseGameState.SPAWNING)
         self.currentMonster = 1
         self.waveLine = self.waveFile.readline()
         if len(self.waveLine) == 0:
